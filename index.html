@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Randy Cabrera — Desarrollador Backend & Full-Stack</title>
+  <meta name="description" content="Portafolio de Randy Leandro Cabrera, desarrollador backend y full-stack. Proyectos en C# / .NET, React, TypeScript, Node.js, PostgreSQL y Docker."/>
+  <meta name="author" content="Randy Leandro Cabrera"/>
+  <meta name="theme-color" content="#070B14"/>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="canonical" href="https://randycabrera.vercel.app/"/>
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="es_ES"/>
+  <meta property="og:title" content="Randy Cabrera — Desarrollador Backend & Full-Stack"/>
+  <meta property="og:description" content="Proyectos en C# / .NET, React, TypeScript, Node.js, PostgreSQL y Docker."/>
+  <meta property="og:url" content="https://randycabrera.vercel.app/"/>
+  <meta property="og:image" content="https://randycabrera.vercel.app/assets/og.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:      #070B14;
+      --bg2:     #0C1220;
+      --bg3:     #151E33;
+      --accent:  #10B981;
+      --accs:    #38BDF8;
+      --accp:    #6366F1;
+      --text:    #F1F5F9;
+      --text2:   #8FA0B8;
+      --border:  #263349;
+      --glass-bg:     rgba(19,27,45,.55);
+      --glass-bg-2:   rgba(10,15,26,.72);
+      --glass-border: rgba(255,255,255,.075);
+      --r:       14px;
+      --nav-h:   64px;
+      --font:    'Inter', system-ui, sans-serif;
+      --mono:    'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); line-height:1.6; overflow-x:hidden; }
+
+    /* ── AURORA BACKGROUND (sutil, sin neón) ── */
+    .aurora { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+    .blob { position:absolute; border-radius:50%; filter:blur(120px); opacity:.20; will-change:transform; }
+    .blob.b1 { width:52vw; height:52vw; background:radial-gradient(circle,var(--accp),transparent 70%); top:-16%; left:-10%; animation:drift1 34s ease-in-out infinite; }
+    .blob.b2 { width:46vw; height:46vw; background:radial-gradient(circle,var(--accs),transparent 70%); top:12%; right:-14%; opacity:.16; animation:drift2 40s ease-in-out infinite; }
+    .blob.b3 { width:44vw; height:44vw; background:radial-gradient(circle,var(--accent),transparent 70%); bottom:-20%; left:14%; opacity:.14; animation:drift3 38s ease-in-out infinite; }
+
+    /* malla técnica + viñeta: dan profundidad sin ruido visual */
+    .grid-bg {
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(148,163,184,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,.045) 1px, transparent 1px);
+      background-size:64px 64px;
+      mask-image:radial-gradient(ellipse 90% 65% at 50% 0%, #000 30%, transparent 78%);
+      -webkit-mask-image:radial-gradient(ellipse 90% 65% at 50% 0%, #000 30%, transparent 78%);
+    }
+    .vignette {
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(ellipse 75% 55% at 50% 42%, transparent 40%, rgba(4,7,13,.72) 100%);
+    }
+    @keyframes drift1 { 0%{transform:translate(0,0) scale(1)} 25%{transform:translate(12vw,10vh) scale(1.18)} 50%{transform:translate(6vw,22vh) scale(1.05)} 75%{transform:translate(-6vw,8vh) scale(1.12)} 100%{transform:translate(0,0) scale(1)} }
+    @keyframes drift2 { 0%{transform:translate(0,0) scale(1)} 25%{transform:translate(-12vw,8vh) scale(1.1)} 50%{transform:translate(-4vw,20vh) scale(1.2)} 75%{transform:translate(8vw,6vh) scale(1.05)} 100%{transform:translate(0,0) scale(1)} }
+    @keyframes drift3 { 0%{transform:translate(0,0) scale(1)} 25%{transform:translate(10vw,-8vh) scale(1.12)} 50%{transform:translate(-8vw,-16vh) scale(1.05)} 75%{transform:translate(-4vw,-4vh) scale(1.15)} 100%{transform:translate(0,0) scale(1)} }
+    @keyframes drift4 { 0%{transform:translate(0,0) scale(1)} 33%{transform:translate(-14vw,-10vh) scale(1.2)} 66%{transform:translate(6vw,-18vh) scale(1.08)} 100%{transform:translate(0,0) scale(1)} }
+
+    #cvs { position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.30; }
+
+    /* ── WRAPPER ── */
+    .pw { position:relative; z-index:1; }
+
+    /* ── GLASS UTILITY ── */
+    .glass {
+      background:var(--glass-bg);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border:1px solid var(--glass-border);
+      box-shadow:0 8px 32px rgba(0,0,0,.28);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      height:var(--nav-h); display:flex; align-items:center; justify-content:space-between;
+      padding:0 2rem;
+      background:rgba(7,11,20,.72); backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
+      border-bottom:1px solid var(--glass-border);
+    }
+    .nav-logo { font-family:var(--mono); font-size:1.05rem; color:var(--accent); text-decoration:none; font-weight:600; }
+    .nav-logo span { color:var(--text2); }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      font-size:.875rem; font-weight:500; color:var(--text2); text-decoration:none;
+      position:relative; transition:color .2s;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-2px; left:0;
+      width:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--accs)); transition:width .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color:var(--text); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+
+    .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+    .ham span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:all .3s; }
+    .ham.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .ham.open span:nth-child(2) { opacity:0; }
+    .ham.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+    .mob-menu {
+      display:none; position:fixed; top:var(--nav-h); left:0; right:0; z-index:999;
+      background:rgba(7,11,20,.97); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+      padding:1.5rem 2rem; flex-direction:column; gap:.75rem;
+    }
+    .mob-menu.open { display:flex; }
+    .mob-menu a { color:var(--text2); text-decoration:none; font-size:1rem; font-weight:500; padding:.5rem 0; border-bottom:1px solid var(--border); transition:color .2s; }
+    .mob-menu a:hover { color:var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      text-align:center; padding:calc(var(--nav-h) + 4rem) 2rem 4rem; position:relative;
+    }
+    .hero-content { max-width:700px; }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:.5rem;
+      background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.3);
+      border-radius:20px; padding:.35rem 1rem;
+      font-size:.78rem; font-weight:500; color:var(--accent);
+      margin-bottom:1.5rem; font-family:var(--mono);
+    }
+    .badge-dot { width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-avatar-wrap { position:relative; width:128px; margin:0 auto 1.5rem; }
+    .hero-avatar {
+      width:128px; height:128px; border-radius:50%; object-fit:cover;
+      border:3px solid transparent; display:block; position:relative; z-index:1;
+      background:var(--bg2);
+      animation:fadeUp .6s ease both;
+    }
+    .hero-avatar-wrap::before {
+      content:''; position:absolute; inset:-3px; border-radius:50%;
+      background:conic-gradient(from 0deg,var(--accent),var(--accs) 35%,rgba(148,163,184,.25) 60%,var(--accent));
+      animation:spin 14s linear infinite; z-index:0;
+    }
+    .hero-avatar-wrap::after {
+      content:''; position:absolute; inset:-16px; border-radius:50%;
+      background:conic-gradient(from 0deg,var(--accent),var(--accs),var(--accent));
+      filter:blur(30px); opacity:.22; z-index:-1; animation:spin 14s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .hero h1 {
+      font-size:clamp(2.3rem,5.5vw,3.6rem); font-weight:800;
+      letter-spacing:-.02em; margin-bottom:.5rem; line-height:1.15;
+      animation:fadeUp .6s .1s ease both;
+    }
+    .hero h1 .hl {
+      background:linear-gradient(120deg,var(--accent) 10%,var(--accs) 90%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .hero-sub {
+      font-size:1.05rem; color:var(--text2); margin-bottom:1rem;
+      font-family:var(--mono); min-height:1.7em;
+      animation:fadeUp .6s .2s ease both;
+    }
+    .cursor { display:inline-block; background:var(--accent); width:2px; height:1em; vertical-align:middle; margin-left:2px; animation:blink 1s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-tags { display:flex; flex-wrap:wrap; gap:.4rem; justify-content:center; margin-bottom:1.25rem; animation:fadeUp .6s .3s ease both; }
+    .htag { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:6px; padding:.2rem .7rem; font-size:.78rem; color:var(--text2); backdrop-filter:blur(8px); }
+
+    .hero p { color:var(--text2); font-size:.975rem; max-width:520px; margin:0 auto 2rem; line-height:1.75; animation:fadeUp .6s .4s ease both; }
+
+    .btn-grp { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; animation:fadeUp .6s .5s ease both; }
+    .btn {
+      display:inline-flex; align-items:center; gap:.45rem;
+      padding:.7rem 1.4rem; border-radius:8px; font-size:.875rem;
+      font-weight:600; text-decoration:none; transition:all .2s;
+      cursor:pointer; border:none; font-family:var(--font);
+    }
+    .btn-p { background:linear-gradient(135deg,var(--accent),#16a34a); color:#071a0d; }
+    .btn-p:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(34,197,94,.35); }
+    .btn-o { background:var(--glass-bg); color:var(--text); border:1px solid var(--glass-border); backdrop-filter:blur(8px); }
+    .btn-o:hover { border-color:var(--accs); color:var(--accs); transform:translateY(-2px); }
+
+    .scroll-ind { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); color:var(--text2); opacity:.5; animation:sbounce 2s infinite; }
+    @keyframes sbounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── STATS ── */
+    .stats-bar { margin:0 1.5rem; border-radius:var(--r); padding:2rem; }
+    .stats-inner { max-width:960px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; text-align:center; }
+    .stat-num { font-size:2.1rem; font-weight:800; font-family:var(--mono); line-height:1;
+      background:linear-gradient(135deg,var(--accent),var(--accs)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .stat-lbl { font-size:.78rem; color:var(--text2); margin-top:.4rem; }
+
+    /* ── SECTIONS ── */
+    section { padding:5rem 2rem; max-width:960px; margin:0 auto; }
+    .sec-head { display:flex; align-items:center; gap:1rem; margin-bottom:3rem; }
+    .sec-num { font-family:var(--mono); color:var(--accent); font-size:.875rem; }
+    .sec-title { font-size:1.7rem; font-weight:800; letter-spacing:-.02em; }
+    .sec-line { flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent); }
+
+    /* ── ABOUT ── */
+    .about-grid { display:grid; grid-template-columns:3fr 2fr; gap:3rem; align-items:start; }
+    .about-text p { color:var(--text2); margin-bottom:1rem; line-height:1.8; }
+    .about-text strong { color:var(--text); }
+    .about-card { border-radius:var(--r); overflow:hidden; }
+    .card-top {
+      background:rgba(0,0,0,.25); padding:.7rem 1.25rem;
+      font-family:var(--mono); font-size:.78rem; color:var(--text2);
+      border-bottom:1px solid var(--glass-border);
+      display:flex; align-items:center; gap:.4rem;
+    }
+    .dot { width:10px; height:10px; border-radius:50%; }
+    .dr{background:#ff5f57} .dy{background:#ffbd2e} .dg{background:#28c840}
+    .card-body { padding:1.25rem; }
+    .info-row {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:.55rem 0; border-bottom:1px solid rgba(255,255,255,.06);
+      font-size:.875rem;
+    }
+    .info-row:last-child { border-bottom:none; }
+    .ik { color:var(--text2); font-family:var(--mono); font-size:.78rem; }
+    .iv { color:var(--text); font-weight:500; }
+    .iv.green { color:var(--accent); }
+
+    /* ── SKILLS ── */
+    .sf { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2rem; }
+    .fb {
+      padding:.35rem 1rem; border-radius:20px; border:1px solid var(--glass-border);
+      background:var(--glass-bg); color:var(--text2); font-size:.78rem;
+      font-weight:500; cursor:pointer; transition:all .2s; font-family:var(--font);
+      backdrop-filter:blur(8px);
+    }
+    .fb:hover { border-color:var(--accs); color:var(--accs); }
+    .fb.active { background:linear-gradient(135deg,var(--accent),#16a34a); border-color:var(--accent); color:#071a0d; }
+
+    .sg { display:grid; grid-template-columns:repeat(auto-fill,minmax(185px,1fr)); gap:1rem; }
+    .sc {
+      border-radius:var(--r); padding:1.2rem;
+      transition:border-color .2s,transform .2s,box-shadow .2s; cursor:default;
+    }
+    .sc:hover { border-color:rgba(34,197,94,.5); transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.35); }
+    .sh { display:flex; align-items:center; gap:.7rem; margin-bottom:.65rem; }
+    .sbadge {
+      width:36px; height:36px; border-radius:8px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.62rem; font-weight:700; font-family:var(--mono); flex-shrink:0;
+    }
+    .sname { font-weight:600; font-size:.875rem; }
+    .sdesc { font-size:.72rem; color:var(--text2); margin-bottom:.65rem; }
+    .strack { height:5px; background:rgba(0,0,0,.3); border-radius:4px; overflow:hidden; }
+    .sfill { height:100%; border-radius:4px; width:0; transition:width 1s cubic-bezier(.4,0,.2,1); }
+    .spct { font-size:.68rem; color:var(--text2); text-align:right; margin-top:.2rem; font-family:var(--mono); }
+
+    /* ── PROJECTS ── */
+    .pg { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1.4rem; }
+    .pc {
+      border-radius:var(--r); padding:0; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition:border-color .2s,transform .25s,box-shadow .25s; position:relative; cursor:pointer;
+    }
+    .pc:hover { border-color:rgba(34,197,94,.55); transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,.4); }
+    .pc.span2 { grid-column:span 2; }
+
+    /* mockup */
+    .mockup { border-bottom:1px solid var(--glass-border); position:relative; }
+    .mockup-bar { display:flex; gap:6px; padding:9px 12px; background:rgba(0,0,0,.35); align-items:center; }
+    .mockup-bar i { width:9px; height:9px; border-radius:50%; display:block; }
+    .mockup-bar .mr{background:#ff5f57} .mockup-bar .my{background:#ffbd2e} .mockup-bar .mg{background:#28c840}
+    .mockup-url { margin-left:.6rem; font-family:var(--mono); font-size:.6rem; color:var(--text2); background:rgba(255,255,255,.05); padding:.1rem .5rem; border-radius:4px; flex:1; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+    .mockup-body { height:150px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background:var(--bg2); }
+    .mockup-body img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      /* iguala fotos claras y oscuras para que el set se vea uniforme */
+      filter:saturate(.72) contrast(1.06) brightness(.62);
+      transform:scale(1.02);
+      transition:filter .35s ease, transform .45s ease;
+    }
+    .pc:hover .mockup-body img { filter:saturate(.95) contrast(1.04) brightness(.82); transform:scale(1.07); }
+    .mockup-glyph { font-family:var(--mono); font-weight:800; font-size:2.6rem; color:#fff; text-shadow:0 4px 18px rgba(0,0,0,.4); z-index:1; letter-spacing:.05em; }
+    .mockup-tag { position:absolute; bottom:10px; left:12px; font-family:var(--mono); font-size:.62rem; color:rgba(255,255,255,.9); z-index:2; text-shadow:0 1px 4px rgba(0,0,0,.6); }
+    .mockup-shade { position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:linear-gradient(180deg,rgba(7,11,20,.15) 0%,transparent 35%,rgba(7,11,20,.78) 100%); }
+
+    .pc-body { padding:1.25rem 1.4rem 1.4rem; display:flex; flex-direction:column; gap:.7rem; flex:1; }
+    .pt { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+    .pbadge { font-size:.66rem; font-weight:600; padding:.2rem .6rem; border-radius:20px; border:1px solid; white-space:nowrap; }
+    .ptitle { font-weight:700; font-size:1rem; line-height:1.3; }
+    .pdesc { color:var(--text2); font-size:.85rem; line-height:1.6; flex:1; }
+    .ptags { display:flex; flex-wrap:wrap; gap:.35rem; }
+    .tpill { font-size:.66rem; background:rgba(0,0,0,.3); border:1px solid var(--glass-border); border-radius:4px; padding:.12rem .5rem; color:var(--text2); font-family:var(--mono); }
+    .pfoot { display:flex; align-items:center; justify-content:space-between; margin-top:.2rem; }
+    .pmore { display:inline-flex; align-items:center; gap:.35rem; color:var(--accent); font-size:.8rem; font-weight:600; }
+    .plink { display:inline-flex; align-items:center; gap:.3rem; color:var(--text2); font-size:.78rem; font-weight:500; text-decoration:none; transition:color .2s; }
+    .plink:hover { color:var(--accs); }
+    .pstat { font-size:.72rem; color:var(--accent); font-family:var(--mono); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position:fixed; inset:0; z-index:2000;
+      background:rgba(6,10,20,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+      display:flex; align-items:center; justify-content:center; padding:2rem;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+    }
+    .modal-overlay.open { opacity:1; pointer-events:auto; }
+    .modal {
+      max-width:740px; width:100%; max-height:88vh; overflow-y:auto;
+      border-radius:18px;
+      background:var(--glass-bg-2); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+      border:1px solid var(--glass-border); box-shadow:0 24px 70px rgba(0,0,0,.55);
+      transform:translateY(24px) scale(.97); transition:transform .3s;
+    }
+    .modal-overlay.open .modal { transform:none; }
+    .modal::-webkit-scrollbar { width:10px; }
+    .modal::-webkit-scrollbar-thumb { background:rgba(255,255,255,.12); border-radius:8px; }
+
+    .modal-hero { height:170px; position:relative; overflow:hidden; border-radius:18px 18px 0 0; display:flex; align-items:center; justify-content:center; }
+    .modal-hero img { width:100%; height:100%; object-fit:cover; filter:saturate(.78) contrast(1.05) brightness(.68); }
+    .modal-hero .mockup-glyph { font-size:3.4rem; }
+    .modal-close {
+      position:absolute; top:14px; right:14px; z-index:3;
+      width:38px; height:38px; border-radius:10px; cursor:pointer;
+      background:rgba(0,0,0,.45); border:1px solid var(--glass-border); color:#fff;
+      display:flex; align-items:center; justify-content:center; transition:all .2s;
+    }
+    .modal-close:hover { background:rgba(0,0,0,.7); transform:rotate(90deg); }
+
+    .modal-body { padding:1.6rem 1.8rem 2rem; }
+    .modal-badge { display:inline-block; font-size:.68rem; font-weight:600; padding:.25rem .7rem; border-radius:20px; border:1px solid; margin-bottom:.8rem; }
+    .modal-title { font-size:1.5rem; font-weight:800; letter-spacing:-.02em; margin-bottom:.8rem; line-height:1.2; }
+    .modal-long { color:var(--text2); line-height:1.8; margin-bottom:1.5rem; }
+    .modal-sec-t { font-size:.78rem; font-family:var(--mono); color:var(--accent); text-transform:uppercase; letter-spacing:.08em; margin:1.5rem 0 .8rem; display:flex; align-items:center; gap:.5rem; }
+    .modal-list { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .modal-list li { position:relative; padding-left:1.5rem; color:var(--text2); font-size:.9rem; line-height:1.6; }
+    .modal-list li::before { content:'▹'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+    .modal-chips { display:flex; flex-wrap:wrap; gap:.45rem; }
+    .modal-chip { font-size:.72rem; background:rgba(34,197,94,.08); border:1px solid rgba(34,197,94,.25); color:var(--accent); border-radius:20px; padding:.25rem .75rem; }
+    .modal-tags { display:flex; flex-wrap:wrap; gap:.45rem; }
+    .modal-tag { font-size:.7rem; background:rgba(0,0,0,.3); border:1px solid var(--glass-border); border-radius:5px; padding:.2rem .6rem; color:var(--text2); font-family:var(--mono); }
+    .modal-demo {
+      background:rgba(0,0,0,.4); border:1px solid var(--glass-border); border-radius:10px;
+      padding:1rem 1.2rem; font-family:var(--mono); font-size:.78rem; color:#cbd5e1;
+      white-space:pre; overflow-x:auto; line-height:1.7; margin-top:.3rem;
+    }
+    .modal-foot { margin-top:1.8rem; display:flex; gap:.8rem; flex-wrap:wrap; }
+
+    /* ── CONTACT ── */
+    .cg { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start; }
+    .ct h3 { font-size:1.9rem; font-weight:800; margin-bottom:1rem; }
+    .ct p { color:var(--text2); line-height:1.8; margin-bottom:1.5rem; }
+    .cls { display:flex; flex-direction:column; gap:.75rem; }
+    .cl {
+      display:flex; align-items:center; gap:.75rem; padding:.9rem 1.2rem;
+      border-radius:10px; color:var(--text); text-decoration:none; font-weight:500; font-size:.875rem;
+      transition:all .2s;
+    }
+    .cl:hover { border-color:var(--accent); transform:translateX(4px); }
+    .cli { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .cr { display:flex; flex-direction:column; gap:1rem; }
+    .ccard { border-radius:var(--r); padding:1.5rem; text-align:center; }
+    .ccard-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
+    .ccard h4 { font-size:.875rem; font-weight:600; margin-bottom:.25rem; }
+    .ccard p { font-size:.78rem; color:var(--text2); }
+
+    /* ── FOOTER ── */
+    footer { text-align:center; padding:2rem; border-top:1px solid var(--glass-border); color:var(--text2); font-size:.83rem; }
+    footer a { color:var(--accent); text-decoration:none; }
+
+    /* ── BACK TOP ── */
+    .btt {
+      position:fixed; bottom:2rem; right:2rem; width:42px; height:42px;
+      border-radius:10px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; color:var(--text2); z-index:500;
+      opacity:0; transform:translateY(10px); transition:all .3s; pointer-events:none;
+    }
+    .btt.vis { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .btt:hover { border-color:var(--accent); color:var(--accent); }
+
+    /* ── REVEAL ── */
+    .rv { opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+    .rv.in { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .ham{display:flex}
+      .about-grid{grid-template-columns:1fr}
+      .stats-inner{grid-template-columns:repeat(2,1fr)}
+      .cg{grid-template-columns:1fr}
+      .pc.span2{grid-column:span 1}
+      section{padding:4rem 1.5rem}
+      .modal-body{padding:1.4rem 1.3rem 1.6rem}
+    }
+    @media(max-width:480px){
+      .sg{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+      .pg{grid-template-columns:1fr}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      #cvs{display:none}
+      .blob{animation:none!important}
+    }
+  </style>
+</head>
+<body>
+
+<!-- AURORA + PARTICLES BACKGROUND -->
+<div class="aurora">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+<div class="grid-bg"></div>
+<canvas id="cvs"></canvas>
+<div class="vignette"></div>
+
+<div class="pw">
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">RC<span>.</span></a>
+  <ul class="nav-links" id="nl">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="ham" id="ham" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mob-menu" id="mm">
+  <a href="#sobre-mi">Sobre mí</a>
+  <a href="#habilidades">Habilidades</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#contacto">Contacto</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><div class="badge-dot"></div>Disponible para colaborar</div>
+    <div class="hero-avatar-wrap">
+      <!-- Para usar una foto real: reemplaza el src por 'assets/foto.jpg' (cuadrada, min. 400x400) -->
+      <img class="hero-avatar" src="assets/avatar.svg" alt="Randy Cabrera" width="128" height="128"/>
+    </div>
+    <h1>Randy <span class="hl">Cabrera</span></h1>
+    <div class="hero-sub"><span id="tt"></span><span class="cursor"></span></div>
+    <div class="hero-tags">
+      <span class="htag">Backend</span>
+      <span class="htag">C# / .NET</span>
+      <span class="htag">Web Development</span>
+      <span class="htag">Full-Stack</span>
+      <span class="htag">Estudiante</span>
+    </div>
+    <p>Apasionado por resolver problemas reales con código limpio. Construyendo proyectos con C#, React, Node.js y más — commit a commit.</p>
+    <div class="btn-grp">
+      <a class="btn btn-p" href="#proyectos">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Ver proyectos
+      </a>
+      <a class="btn btn-o" href="https://github.com/RandyCabrera08" target="_blank" rel="noopener">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+  <div class="scroll-ind" aria-hidden="true">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar glass rv">
+  <div class="stats-inner">
+    <div><div class="stat-num" data-t="11">0</div><div class="stat-lbl">Repositorios</div></div>
+    <div><div class="stat-num" data-t="7">0</div><div class="stat-lbl">Proyectos</div></div>
+    <div><div class="stat-num" data-t="21">0</div><div class="stat-lbl">Tecnologías</div></div>
+    <div><div class="stat-num" data-t="51">0</div><div class="stat-lbl">Commits (SIGER)</div></div>
+  </div>
+</div>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div class="sec-head rv"><span class="sec-num">01.</span><h2 class="sec-title">Sobre mí</h2><div class="sec-line"></div></div>
+  <div class="about-grid">
+    <div class="about-text rv">
+      <p>Hola, soy <strong>Randy Leandro Cabrera</strong>, un desarrollador en formación con pasión por resolver problemas a través del código. Me encuentro en una etapa emocionante de mi carrera, dominando los fundamentos de la programación y construyendo proyectos cada vez más complejos.</p>
+      <p>Mi enfoque principal ha sido <strong>C# y la programación orientada a objetos</strong>, desarrollando sistemas como cajeros automáticos, gestión de empleados y simulaciones bancarias. También he trabajado en <strong>desarrollo web full-stack</strong> con React, TypeScript, Node.js y múltiples motores de bases de datos.</p>
+      <p>Manejo herramientas como <strong>Postman</strong> para testing de APIs, <strong>SQL Server y Oracle</strong> para bases de datos empresariales, y <strong>Docker</strong> para entornos de contenedores. Sigo creciendo, commit a commit.</p>
+    </div>
+    <div class="about-card glass rv">
+      <div class="card-top"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div><span style="margin-left:.5rem">info.json</span></div>
+      <div class="card-body">
+        <div class="info-row"><span class="ik">nombre</span><span class="iv">Randy Cabrera</span></div>
+        <div class="info-row"><span class="ik">rol</span><span class="iv">Dev en formación</span></div>
+        <div class="info-row"><span class="ik">lenguaje</span><span class="iv">C# / JavaScript</span></div>
+        <div class="info-row"><span class="ik">enfoque</span><span class="iv">Backend &amp; Web</span></div>
+        <div class="info-row"><span class="ik">github</span><span class="iv">@RandyCabrera08</span></div>
+        <div class="info-row"><span class="ik">repos</span><span class="iv">11</span></div>
+        <div class="info-row"><span class="ik">estado</span><span class="iv green">● Disponible</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div class="sec-head rv"><span class="sec-num">02.</span><h2 class="sec-title">Habilidades</h2><div class="sec-line"></div></div>
+  <div class="sf rv" id="sf">
+    <button class="fb active" data-c="all">Todas</button>
+    <button class="fb" data-c="lenguajes">Lenguajes</button>
+    <button class="fb" data-c="frontend">Frontend</button>
+    <button class="fb" data-c="backend">Backend</button>
+    <button class="fb" data-c="databases">Bases de datos</button>
+    <button class="fb" data-c="tools">Herramientas</button>
+  </div>
+  <div class="sg" id="sg"></div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="sec-head rv"><span class="sec-num">03.</span><h2 class="sec-title">Proyectos</h2><div class="sec-line"></div></div>
+  <div class="sf rv" id="pf">
+    <button class="fb active" data-p="all">Todos</button>
+    <button class="fb" data-p="fullstack">Full-Stack</button>
+    <button class="fb" data-p="web">Web</button>
+    <button class="fb" data-p="csharp">C#</button>
+  </div>
+  <p class="rv" style="color:var(--text2);font-size:.83rem;margin:-1rem 0 1.5rem;">💡 Haz clic en cualquier proyecto para ver la explicación detallada del sistema.</p>
+  <div class="pg" id="pg"></div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="sec-head rv"><span class="sec-num">04.</span><h2 class="sec-title">Contacto</h2><div class="sec-line"></div></div>
+  <div class="cg">
+    <div class="ct rv">
+      <h3>¡Hablemos!</h3>
+      <p>Estoy abierto a colaboraciones, proyectos de aprendizaje o simplemente conectar con otros desarrolladores. Si tienes una idea en mente, no dudes en escribirme.</p>
+      <div class="cls">
+        <a class="cl glass" href="mailto:randyleandrocabrera@gmail.com">
+          <div class="cli" style="background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25)">
+            <svg width="15" height="15" fill="none" stroke="#38bdf8" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div><div style="font-size:.72rem;color:var(--text2)">Email</div><div>randyleandrocabrera@gmail.com</div></div>
+        </a>
+        <a class="cl glass" href="https://github.com/RandyCabrera08" target="_blank" rel="noopener">
+          <div class="cli" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25)">
+            <svg width="15" height="15" fill="#22c55e" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <div><div style="font-size:.72rem;color:var(--text2)">GitHub</div><div>@RandyCabrera08</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="cr rv">
+      <div class="ccard glass">
+        <div class="ccard-icon" style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)">
+          <svg width="22" height="22" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <h4>Disponible para colaborar</h4>
+        <p>Abierto a proyectos y oportunidades de aprendizaje</p>
+      </div>
+      <div class="ccard glass">
+        <div class="ccard-icon" style="background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2)">
+          <svg width="22" height="22" fill="none" stroke="var(--accs)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.4 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l1.27-.82a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h4>Respuesta rápida</h4>
+        <p>Respondo en menos de 24 horas</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /pw -->
+
+<footer>
+  <p>Diseñado y construido por <a href="https://github.com/RandyCabrera08" target="_blank">Randy Cabrera</a> · 2026</p>
+</footer>
+
+<button class="btt glass" id="btt" aria-label="Volver arriba">
+  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+/* ── DATA: SKILLS ── */
+const SKILLS = [
+  {name:'C#',                  pct:75, desc:'Lenguaje principal · POO',        color:'#9B59B6', init:'C#',   cat:'lenguajes'},
+  {name:'JavaScript',          pct:55, desc:'DOM, eventos, async/await',        color:'#F7DF1E', init:'JS',   cat:'lenguajes', dark:true},
+  {name:'TypeScript',          pct:55, desc:'Tipos estáticos, interfaces',      color:'#3178C6', init:'TS',   cat:'lenguajes'},
+  {name:'POO / OOP',           pct:70, desc:'Clases, herencia, SOLID',          color:'#EC4899', init:'OOP',  cat:'lenguajes'},
+  {name:'Lógica & Algoritmos', pct:72, desc:'Estructuras, patrones, recursión', color:'#F59E0B', init:'ALG',  cat:'lenguajes'},
+  {name:'HTML & CSS',          pct:60, desc:'Semántica, Flexbox, Grid',         color:'#E34F26', init:'HTML', cat:'frontend'},
+  {name:'React',               pct:60, desc:'SPA, hooks, Context API',          color:'#61DAFB', init:'Re',   cat:'frontend', dark:true},
+  {name:'Bootstrap',           pct:55, desc:'UI responsiva, componentes',       color:'#7952B3', init:'BS',   cat:'frontend'},
+  {name:'Tailwind CSS',        pct:50, desc:'Utility-first, diseño moderno',    color:'#06B6D4', init:'TW',   cat:'frontend'},
+  {name:'Node.js + Express',   pct:55, desc:'APIs REST, middleware',            color:'#339933', init:'Node', cat:'backend'},
+  {name:'.NET / ASP.NET',      pct:45, desc:'Web APIs, MVC, controladores',     color:'#512BD4', init:'.NET', cat:'backend'},
+  {name:'REST APIs',           pct:60, desc:'Diseño e integración de APIs',     color:'#22C55E', init:'API',  cat:'backend'},
+  {name:'JWT Auth',            pct:50, desc:'Autenticación por tokens, roles',  color:'#FB7185', init:'JWT',  cat:'backend'},
+  {name:'PostgreSQL',          pct:50, desc:'Bases de datos relacionales',      color:'#336791', init:'PG',   cat:'databases'},
+  {name:'SQL Server',          pct:55, desc:'T-SQL, procedimientos, vistas',    color:'#CC2927', init:'SQL',  cat:'databases'},
+  {name:'Oracle DB',           pct:40, desc:'PL/SQL, consultas avanzadas',      color:'#F80000', init:'ORA',  cat:'databases'},
+  {name:'MySQL',               pct:45, desc:'Consultas, relaciones, triggers',  color:'#4479A1', init:'My',   cat:'databases'},
+  {name:'Git & GitHub',        pct:60, desc:'Ramas, PRs, trabajo en equipo',    color:'#F05032', init:'Git',  cat:'tools'},
+  {name:'Postman',             pct:60, desc:'Testing y documentación de APIs',  color:'#FF6C37', init:'PM',   cat:'tools'},
+  {name:'Docker',              pct:45, desc:'Contenedores, compose, imágenes',  color:'#2496ED', init:'Do',   cat:'tools'},
+  {name:'Vite',                pct:50, desc:'Build tool, dev server rápido',    color:'#646CFF', init:'Vi',   cat:'tools'},
+];
+
+/* ── DATA: PROJECTS ──
+   Para usar un screenshot real en vez del mockup CSS:
+   agrega  image: 'ruta/a/imagen.png'  a cualquier proyecto. */
+const PROJECTS = [
+  {
+    id:'siger', init:'SIGER', color:'#f97316', badge:'Full-Stack Grupal', badgeC:'#f97316',
+    title:'SIGER — Sistema de Gestión de Restaurante',
+    url:'github.com/Arbin89/grupo8-funcionando', image:'assets/siger.jpg',
+    desc:'App web full-stack para la gestión integral de un restaurante, con roles, módulos operativos y un asistente de IA integrado.',
+    longDesc:'SIGER es una aplicación web full-stack desarrollada en equipo para administrar todas las operaciones de un restaurante desde una sola plataforma: usuarios, reservaciones, inventario, menú, cocina y reportes. Cada tipo de empleado accede a su propia vista según su rol, y un asistente de IA apoya las tareas dentro de la app. Es mi proyecto más completo, con 51 commits de trabajo colaborativo.',
+    howItWorks:[
+      'Frontend construido en React + TypeScript, con Vite como bundler y Tailwind CSS para la interfaz.',
+      'Backend en Node.js + Express que expone una API REST consumida por el frontend.',
+      'Base de datos PostgreSQL, con todo el entorno orquestado mediante Docker para levantarlo de forma consistente.',
+      'Autenticación con JWT y control de acceso por roles: Administrador, Mesero y Cocina, cada uno con permisos y vistas distintas.',
+      'Asistente de IA integrado vía OpenRouter (modelo Llama 3.1) para asistencia dentro del sistema.'
+    ],
+    concepts:['Arquitectura full-stack','API REST','Autenticación JWT','Roles y permisos','Docker / contenedores','Integración de IA','Trabajo colaborativo'],
+    demo:'Módulos del sistema\n├── 👥 Usuarios       (gestión y roles)\n├── 📅 Reservaciones (mesas y horarios)\n├── 📦 Inventario    (stock y productos)\n├── 🍽️  Menú          (platos y precios)\n├── 👨‍🍳 Cocina        (órdenes en tiempo real)\n└── 📊 Reportes      (ventas y métricas)\n\nRoles → Admin · Mesero · Cocina',
+    tags:['React','TypeScript','Node.js','Express','PostgreSQL','Docker','Tailwind','Vite','JWT','OpenRouter IA'],
+    link:'https://github.com/Arbin89/grupo8-funcionando',
+    commits:51, cat:'fullstack', cls:'span2',
+  },
+  {
+    id:'youragenda', init:'YA', color:'#22C55E', badge:'Web', badgeC:'#22C55E',
+    title:'YourAgenda — Agenda de Contactos',
+    url:'github.com/RandyCabrera08/Proyecto-final', image:'assets/youragenda.jpg',
+    desc:'Aplicación web de agenda con CRUD completo, persistencia en el navegador y avatares automáticos.',
+    longDesc:'YourAgenda es una aplicación web para gestionar contactos con operaciones CRUD completas (crear, leer, actualizar y eliminar). Funciona totalmente en el navegador, sin backend: los datos se guardan en localStorage y sobreviven al cierre de la página. La interfaz es limpia y responsiva gracias a Bootstrap.',
+    howItWorks:[
+      'Toda la lógica corre en el cliente con JavaScript y jQuery para manipular el DOM.',
+      'Los contactos se guardan en localStorage serializados como JSON, así persisten sin servidor.',
+      'Cada contacto genera un avatar automático a partir de sus iniciales.',
+      'Búsqueda en tiempo real que filtra los contactos a medida que escribes.',
+      'Diseño responsive con Bootstrap, adaptado a móvil, tablet y escritorio.'
+    ],
+    concepts:['CRUD completo','Manipulación del DOM','localStorage / JSON','Búsqueda en tiempo real','Diseño responsive','jQuery'],
+    demo:'Operaciones CRUD\n  ➕ Crear      → nuevo contacto\n  📖 Leer       → lista + búsqueda\n  ✏️  Actualizar → editar campos\n  🗑️  Eliminar   → con confirmación\n\nPersistencia → localStorage (JSON)',
+    tags:['HTML','CSS','JavaScript','jQuery','Bootstrap','localStorage'],
+    link:'https://github.com/RandyCabrera08/Proyecto-final',
+    cat:'web', cls:'',
+  },
+  {
+    id:'cajero', init:'CA', color:'#a78bfa', badge:'C# · Consola', badgeC:'#a78bfa',
+    title:'Cajero Automático',
+    url:'github.com/RandyCabrera08/Proyecto-de-c-', image:'assets/cajero.jpg',
+    desc:'Programa de consola que entrega cualquier monto usando la cantidad mínima de billetes.',
+    longDesc:'Cajero Automático es un programa de consola en C# que, dado un monto, calcula la cantidad mínima de billetes necesaria para entregarlo usando denominaciones de $1000, $500, $200 y $100. Es un ejercicio clásico de lógica matemática que aplica una estrategia greedy (voraz).',
+    howItWorks:[
+      'El usuario ingresa el monto a retirar por consola.',
+      'El algoritmo usa división entera (/) para saber cuántos billetes de cada denominación caben.',
+      'Usa el operador módulo (%) para obtener el residuo y pasar a la siguiente denominación menor.',
+      'Repite el proceso de mayor a menor (1000 → 500 → 200 → 100), garantizando el mínimo de billetes.'
+    ],
+    concepts:['División entera','Operador módulo','Algoritmo greedy','Entrada/salida por consola','Tipos primitivos'],
+    demo:'> Ingrese la cantidad a retirar: 2800\n\nBilletes de 1000 : 2\nBilletes de 500  : 1\nBilletes de 200  : 1\nBilletes de 100  : 1\n──────────────────────\nMínimo de billetes: 5',
+    tags:['C#','Consola','Lógica matemática'],
+    link:'https://github.com/RandyCabrera08/Proyecto-de-c-',
+    cat:'csharp', cls:'',
+  },
+  {
+    id:'banco', init:'SB', color:'#22C55E', badge:'C# · POO', badgeC:'#22C55E',
+    title:'Sistema Bancario',
+    url:'github.com/RandyCabrera08/Tarea-de-hoy', image:'assets/banco.jpg',
+    desc:'Simulación bancaria con clases Cliente y Banco que gestiona depósitos, extracciones y balance.',
+    longDesc:'Sistema Bancario es una simulación en C# que modela el funcionamiento básico de un banco con varios clientes. Aplica los pilares de la Programación Orientada a Objetos: clases, objetos, encapsulamiento y responsabilidad única. La clase Banco contiene y coordina varias instancias de Cliente.',
+    howItWorks:[
+      'La clase Cliente guarda nombre y monto como campos privados (encapsulamiento).',
+      'Cliente expone métodos para Depositar, Extraer, RetornarMonto e Imprimir.',
+      'La clase Banco crea los clientes en su constructor y ejecuta las operaciones.',
+      'Banco calcula el balance total sumando el monto de todos los clientes y genera el reporte.'
+    ],
+    concepts:['Clases y objetos','Encapsulamiento','Constructores','Composición','Responsabilidad única'],
+    demo:'class Banco\n ├── Cliente "Randy"  → 10000\n ├── Cliente "Miguel" → 15000\n └── Cliente "Pedro"  →  4967\n\nTotal en el banco: 29967',
+    tags:['C#','POO','Clases','Encapsulamiento'],
+    link:'https://github.com/RandyCabrera08/Tarea-de-hoy',
+    cat:'csharp', cls:'',
+  },
+  {
+    id:'empleados', init:'SE', color:'#a78bfa', badge:'C# · Arrays', badgeC:'#a78bfa',
+    title:'Sistema de Empleados',
+    url:'github.com/RandyCabrera08/-Empleados', image:'assets/empleados.jpg',
+    desc:'Gestión de empleados con arrays paralelos que encuentra al de mayor salario por búsqueda lineal.',
+    longDesc:'Sistema de Empleados es una aplicación de consola en C# que registra nombres y sueldos usando arrays paralelos, y determina cuál empleado tiene el salario más alto mediante un algoritmo de búsqueda lineal. Es un ejercicio fundamental para entender estructuras de datos.',
+    howItWorks:[
+      'Usa dos arrays paralelos: uno para nombres (string[]) y otro para sueldos (float[]); el mismo índice los conecta.',
+      'Un ciclo for carga los datos de cada empleado desde la consola.',
+      'La búsqueda lineal asume que el primero es el mayor y recorre el resto comparando.',
+      'Cuando encuentra un sueldo mayor, guarda el valor y la posición para reportar el nombre correcto.'
+    ],
+    concepts:['Arrays','Arrays paralelos','Ciclo for','Búsqueda lineal','Tipos de datos'],
+    demo:'índice:   [0]     [1]    [2]\nnombres: Randy    Ana   Luis\nsueldos: 25000  30000  28000\n                  ▲\n          mayor salario\n\nResultado → Ana · 30000',
+    tags:['C#','Arrays','Búsqueda lineal'],
+    link:'https://github.com/RandyCabrera08/-Empleados',
+    cat:'csharp', cls:'',
+  },
+  {
+    id:'arrays', init:'AR', color:'#F59E0B', badge:'C# · Algoritmos', badgeC:'#F59E0B',
+    title:'Ejercicios con Arrays',
+    url:'github.com/RandyCabrera08/Arrays', image:'assets/arrays.jpg',
+    desc:'Colección de ejercicios prácticos de manipulación de arreglos: base para estructuras de datos.',
+    longDesc:'Ejercicios con Arrays es una colección de prácticas en C# centradas en la manipulación de arreglos: recorridos, búsquedas, ordenamientos y estadísticas. Documenta el aprendizaje de la estructura de datos más fundamental, base de todo lo que viene después.',
+    howItWorks:[
+      'Carga y recorrido de arrays con ciclos for.',
+      'Búsqueda lineal de elementos dentro del arreglo.',
+      'Cálculo de máximo, mínimo, suma y promedio con acumuladores.',
+      'Ordenamiento básico de los elementos de menor a mayor.'
+    ],
+    concepts:['Declaración de arrays','Ciclos','Búsqueda lineal','Ordenamiento','Acumuladores y contadores'],
+    demo:'Arrays → Listas → Pilas/Colas → Árboles → Grafos\n   ▲\n  estás aquí: dominando la base',
+    tags:['C#','Arrays','Algoritmos'],
+    link:'https://github.com/RandyCabrera08/Arrays',
+    cat:'csharp', cls:'',
+  },
+  {
+    id:'bookshop', init:'BS', color:'#38BDF8', badge:'C# · Grupal', badgeC:'#38BDF8',
+    title:'BookShop',
+    url:'github.com/acevedorandy/BookShop', image:'assets/bookshop.jpg',
+    desc:'Aplicación de librería en línea desarrollada en equipo. Colaboración en C# / .NET.',
+    longDesc:'BookShop es una aplicación de librería en línea construida en equipo con C# y .NET. Participé como colaborador del proyecto, aportando al desarrollo junto a otros desarrolladores. Es un ejemplo de mi experiencia trabajando en repositorios compartidos y flujos de trabajo en grupo.',
+    howItWorks:[
+      'Aplicación desarrollada con C# sobre el ecosistema .NET.',
+      'Proyecto colaborativo en un repositorio compartido del equipo.',
+      'Aporté como colaborador al desarrollo de funcionalidades de la librería.',
+      'Práctica de trabajo en equipo: ramas, commits y coordinación.'
+    ],
+    concepts:['C# / .NET','Trabajo colaborativo','Control de versiones','Repositorio compartido'],
+    demo:'Rol → Colaborador\nEquipo → proyecto grupal\nStack → C# · .NET',
+    tags:['C#','.NET','Trabajo en equipo'],
+    link:'https://github.com/acevedorandy/BookShop',
+    cat:'csharp', cls:'',
+  },
+];
+
+/* ── RENDER SKILLS ── */
+function renderSkills(cat) {
+  const grid = document.getElementById('sg');
+  grid.innerHTML = '';
+  const list = cat === 'all' ? SKILLS : SKILLS.filter(s => s.cat === cat);
+  list.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'sc glass rv';
+    el.style.transitionDelay = (i * 40) + 'ms';
+    const tc = s.dark ? '#1a1a1a' : '#fff';
+    el.innerHTML =
+      '<div class="sh">' +
+        '<div class="sbadge" style="background:' + s.color + ';color:' + tc + '">' + s.init + '</div>' +
+        '<div class="sname">' + s.name + '</div>' +
+      '</div>' +
+      '<div class="sdesc">' + s.desc + '</div>' +
+      '<div class="strack"><div class="sfill" data-p="' + s.pct + '" style="background:linear-gradient(90deg,' + s.color + ',' + s.color + '88)"></div></div>' +
+      '<div class="spct">' + s.pct + '%</div>';
+    grid.appendChild(el);
+  });
+  setTimeout(() => {
+    grid.querySelectorAll('.rv').forEach(e => e.classList.add('in'));
+    grid.querySelectorAll('.sfill').forEach(b => { b.style.width = b.dataset.p + '%'; });
+  }, 60);
+}
+
+/* ── MOCKUP HTML ── */
+function mockupHTML(p, big) {
+  const grad = 'background:linear-gradient(135deg,' + p.color + 'cc,' + p.color + '55),radial-gradient(circle at 70% 20%,rgba(255,255,255,.18),transparent 60%);';
+  const inner = p.image
+    ? '<img src="' + p.image + '" alt="' + p.title + '"/><div class="mockup-shade"></div>' + (big ? '' : '<div class="mockup-tag">// ' + p.url + '</div>')
+    : '<div class="mockup-glyph">' + p.init + '</div><div class="mockup-tag">// ' + p.url + '</div>';
+  if (big) {
+    return '<div class="modal-hero" style="' + (p.image ? '' : grad) + '">' + inner +
+           '<button class="modal-close" id="modalClose" aria-label="Cerrar">' +
+           '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>';
+  }
+  return '<div class="mockup">' +
+      '<div class="mockup-bar"><i class="mr"></i><i class="my"></i><i class="mg"></i><span class="mockup-url">' + p.url + '</span></div>' +
+      '<div class="mockup-body" style="' + (p.image ? '' : grad) + '">' + inner + '</div>' +
+    '</div>';
+}
+
+/* ── RENDER PROJECTS ── */
+function renderProjects(cat) {
+  const grid = document.getElementById('pg');
+  grid.innerHTML = '';
+  const list = cat === 'all' ? PROJECTS : PROJECTS.filter(p => p.cat === cat);
+  list.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'pc glass rv ' + (p.cls || '');
+    el.style.transitionDelay = (i * 55) + 'ms';
+    el.setAttribute('data-id', p.id);
+    el.innerHTML =
+      mockupHTML(p, false) +
+      '<div class="pc-body">' +
+        '<div class="pt">' +
+          '<div class="ptitle">' + p.title + '</div>' +
+          '<span class="pbadge" style="color:' + p.badgeC + ';border-color:' + p.badgeC + '44;background:' + p.badgeC + '18">' + p.badge + '</span>' +
+        '</div>' +
+        '<div class="pdesc">' + p.desc + '</div>' +
+        '<div class="ptags">' + p.tags.slice(0,5).map(t => '<span class="tpill">' + t + '</span>').join('') + '</div>' +
+        '<div class="pfoot">' +
+          '<span class="pmore">Ver detalles ' +
+            '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+          '</span>' +
+          (p.commits ? '<span class="pstat">↑' + p.commits + ' commits</span>' :
+            '<a class="plink" href="' + p.link + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub ↗</a>') +
+        '</div>' +
+      '</div>';
+    el.addEventListener('click', () => openModal(p.id));
+    grid.appendChild(el);
+    setTimeout(() => el.classList.add('in'), 60 + i * 55);
+  });
+}
+
+/* ── MODAL ── */
+let lastFocus = null;
+function openModal(id) {
+  const p = PROJECTS.find(x => x.id === id);
+  if (!p) return;
+  lastFocus = document.activeElement;
+  const modal = document.getElementById('modal');
+  modal.innerHTML =
+    mockupHTML(p, true) +
+    '<div class="modal-body">' +
+      '<span class="modal-badge" style="color:' + p.badgeC + ';border-color:' + p.badgeC + '44;background:' + p.badgeC + '18">' + p.badge + '</span>' +
+      '<h2 class="modal-title" id="modalTitle">' + p.title + '</h2>' +
+      '<p class="modal-long">' + p.longDesc + '</p>' +
+      '<div class="modal-sec-t">⚙️ ¿Cómo funciona?</div>' +
+      '<ul class="modal-list">' + p.howItWorks.map(h => '<li>' + h + '</li>').join('') + '</ul>' +
+      (p.demo ? '<div class="modal-sec-t">▶️ Vista rápida</div><div class="modal-demo">' + p.demo + '</div>' : '') +
+      '<div class="modal-sec-t">🧠 Conceptos aplicados</div>' +
+      '<div class="modal-chips">' + p.concepts.map(c => '<span class="modal-chip">' + c + '</span>').join('') + '</div>' +
+      '<div class="modal-sec-t">🛠️ Tecnologías</div>' +
+      '<div class="modal-tags">' + p.tags.map(t => '<span class="modal-tag">' + t + '</span>').join('') + '</div>' +
+      '<div class="modal-foot">' +
+        '<a class="btn btn-p" href="' + p.link + '" target="_blank" rel="noopener">' +
+          '<svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>' +
+          'Ver en GitHub' +
+        '</a>' +
+        (p.commits ? '<span class="btn btn-o" style="cursor:default">↑ ' + p.commits + ' commits</span>' : '') +
+      '</div>' +
+    '</div>';
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const closeBtn = document.getElementById('modalClose');
+  if (closeBtn) { closeBtn.addEventListener('click', closeModal); closeBtn.focus(); }
+  document.getElementById('modal').scrollTop = 0;
+}
+function closeModal() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if (lastFocus) lastFocus.focus();
+}
+
+/* ── CANVAS PARTICLES (subtle) ── */
+function initCanvas() {
+  const cv = document.getElementById('cvs');
+  const cx = cv.getContext('2d');
+  let N = 70, W, H, pts;
+  const D = 140;
+  const mouse = { x:-9999, y:-9999 };
+  function resize() {
+    W = cv.width = window.innerWidth;
+    H = cv.height = window.innerHeight;
+    N = Math.max(40, Math.min(95, Math.floor(W*H/17000)));
+  }
+  function mkPt() { return { x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.45, vy:(Math.random()-.5)*.45, r:Math.random()*1.4+.5 }; }
+  function init() { resize(); pts = Array.from({length:N}, mkPt); }
+  function draw() {
+    cx.clearRect(0,0,W,H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      // atracción suave al cursor
+      const mdx = mouse.x-p.x, mdy = mouse.y-p.y, md = Math.hypot(mdx,mdy);
+      if(md<170 && md>0){ p.x += mdx/md*0.55; p.y += mdy/md*0.55; }
+      cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      cx.fillStyle='rgba(148,180,214,.42)'; cx.fill();
+    });
+    for(let i=0;i<pts.length;i++) {
+      for(let j=i+1;j<pts.length;j++) {
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.hypot(dx,dy);
+        if(d<D) {
+          cx.beginPath(); cx.moveTo(pts[i].x,pts[i].y); cx.lineTo(pts[j].x,pts[j].y);
+          cx.strokeStyle='rgba(125,155,190,'+((.11*(1-d/D)).toFixed(3))+')';
+          cx.lineWidth=.6; cx.stroke();
+        }
+      }
+      // línea al cursor
+      const dxm=pts[i].x-mouse.x, dym=pts[i].y-mouse.y, dm=Math.hypot(dxm,dym);
+      if(dm<D) {
+        cx.beginPath(); cx.moveTo(pts[i].x,pts[i].y); cx.lineTo(mouse.x,mouse.y);
+        cx.strokeStyle='rgba(16,185,129,'+((.20*(1-dm/D)).toFixed(3))+')';
+        cx.lineWidth=.7; cx.stroke();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  init(); draw();
+  window.addEventListener('resize', init);
+  window.addEventListener('mousemove', e => { mouse.x=e.clientX; mouse.y=e.clientY; });
+  window.addEventListener('mouseout', () => { mouse.x=-9999; mouse.y=-9999; });
+}
+
+/* ── TYPING ANIMATION ── */
+function initTyping() {
+  const el = document.getElementById('tt');
+  const phrases = ['Desarrollador Backend','Estudiante de Programación','Desarrollador Full-Stack','Amante de C# y .NET','Builder de proyectos reales'];
+  let pi=0, ci=0, del=false;
+  function type() {
+    const ph = phrases[pi];
+    if(!del) { el.textContent = ph.slice(0,++ci); if(ci===ph.length){del=true;setTimeout(type,1800);return;} }
+    else { el.textContent = ph.slice(0,--ci); if(ci===0){del=false;pi=(pi+1)%phrases.length;} }
+    setTimeout(type, del?45:75);
+  }
+  type();
+}
+
+/* ── COUNTERS ── */
+function counter(el) {
+  const target = +el.dataset.t, dur = 1400, t0 = performance.now();
+  function step(now) {
+    const p = Math.min((now-t0)/dur,1);
+    el.textContent = Math.round((1-Math.pow(1-p,3))*target);
+    if(p<1) requestAnimationFrame(step); else el.textContent=target;
+  }
+  requestAnimationFrame(step);
+}
+
+/* ── OBSERVERS ── */
+function initObs() {
+  const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);} }), {threshold:.1});
+  const co = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){counter(e.target);co.unobserve(e.target);} }), {threshold:.5});
+  document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+  document.querySelectorAll('.stat-num').forEach(el => co.observe(el));
+}
+
+/* ── ACTIVE NAV ── */
+function initNav() {
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const o = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if(e.isIntersecting) {
+        links.forEach(l=>l.classList.remove('active'));
+        const a = document.querySelector('.nav-links a[href="#'+e.target.id+'"]');
+        if(a) a.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-38% 0px -58% 0px'});
+  secs.forEach(s=>o.observe(s));
+}
+
+/* ── BACK TOP ── */
+function initBtt() {
+  const b = document.getElementById('btt');
+  window.addEventListener('scroll', () => b.classList.toggle('vis', scrollY>400));
+  b.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+}
+
+/* ── MOBILE MENU ── */
+function initMob() {
+  const btn = document.getElementById('ham');
+  const menu = document.getElementById('mm');
+  btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
+}
+
+/* ── FILTERS ── */
+function initFilters() {
+  document.getElementById('sf').addEventListener('click', e => {
+    const b = e.target.closest('.fb'); if(!b) return;
+    document.querySelectorAll('#sf .fb').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderSkills(b.dataset.c);
+  });
+  document.getElementById('pf').addEventListener('click', e => {
+    const b = e.target.closest('.fb'); if(!b) return;
+    document.querySelectorAll('#pf .fb').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderProjects(b.dataset.p);
+  });
+}
+
+/* ── MODAL GLOBAL LISTENERS ── */
+function initModal() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+}
+
+/* ── BOOT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderSkills('all');
+  renderProjects('all');
+  initCanvas();
+  initTyping();
+  initObs();
+  initNav();
+  initBtt();
+  initMob();
+  initFilters();
+  initModal();
+});
+</script>
+</body>
+</html>
