@@ -40,12 +40,13 @@ Todo el contenido vive en dos arreglos al final de `index.html`:
 
 Para agregar un proyecto, copia un objeto de `PROJECTS`, cámbiale el `id` y añade su imagen a `assets/`.
 
-## Poner una foto real
+## Foto del hero
 
-El hero usa un monograma (`assets/avatar.svg`) porque la cuenta de GitHub no tiene foto de perfil. Para usar una foto:
+El hero usa `assets/foto.jpg` (256×256). Para cambiarla, sustituye ese archivo por otra
+imagen cuadrada; se recorta en círculo, así que conviene que la cara quede centrada.
 
-1. Copia la imagen a `assets/foto.jpg` (cuadrada, mínimo 400×400).
-2. En `index.html`, cambia `src="assets/avatar.svg"` por `src="assets/foto.jpg"`.
+Se incluye también `assets/avatar.svg`, un monograma "RC" como alternativa sin foto:
+basta cambiar el `src` del `<img class="hero-avatar">` en `index.html`.
 
 ## Despliegue
 
